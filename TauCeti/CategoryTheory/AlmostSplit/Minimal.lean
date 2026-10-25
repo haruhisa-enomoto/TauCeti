@@ -50,7 +50,7 @@ theorem IsRightAlmostSplit.isLeftAlmostSplit_of_minimal (hg : IsRightAlmostSplit
     IsLeftAlmostSplit S.f := by
   have := hS.mono_f
   refine isLeftAlmostSplit_iff.mpr ⟨?_, fun X h hh ↦ ?_⟩
-  · exact fun hf ↦ hg.not_isSplitEpi ((isSplitMono_f_iff_isSplitEpi_g hS).mp hf)
+  · exact fun hf ↦ hg.not_isSplitEpi (hS.isSplitMono_f_iff_isSplitEpi_g.mp hf)
   · let sq := IsPushout.of_hasPushout S.f h
     let q := cobaseChangeπ S sq
     have hT : (cobaseChange S sq).ShortExact :=
@@ -148,7 +148,7 @@ theorem ShortExact.isAlmostSplit_iff_isRightAlmostSplit (hS : S.ShortExact)
     [IsLocalRing (End S.X₁)] : S.IsAlmostSplit ↔ TauCeti.IsRightAlmostSplit S.g := by
   refine ⟨fun h ↦ h.isRightAlmostSplit_g, fun hg ↦ ?_⟩
   have hf : ¬ IsSplitMono S.f := fun hf ↦
-    hg.not_isSplitEpi ((TauCeti.isSplitMono_f_iff_isSplitEpi_g hS).mp hf)
+    hg.not_isSplitEpi (hS.isSplitMono_f_iff_isSplitEpi_g.mp hf)
   exact hS.isAlmostSplit_of_isRightAlmostSplit hg (hS.isIso_of_comp_g_eq hf)
 
 /-- A short exact sequence with local right-hand endomorphism ring is almost split exactly
@@ -157,7 +157,7 @@ theorem ShortExact.isAlmostSplit_iff_isLeftAlmostSplit (hS : S.ShortExact)
     [IsLocalRing (End S.X₃)] : S.IsAlmostSplit ↔ TauCeti.IsLeftAlmostSplit S.f := by
   refine ⟨fun h ↦ h.isLeftAlmostSplit_f, fun hf ↦ ?_⟩
   have hg : ¬ IsSplitEpi S.g := fun hg ↦
-    hf.not_isSplitMono ((TauCeti.isSplitMono_f_iff_isSplitEpi_g hS).mpr hg)
+    hf.not_isSplitMono (hS.isSplitMono_f_iff_isSplitEpi_g.mpr hg)
   exact hS.isAlmostSplit_of_isLeftAlmostSplit hf (hS.isIso_of_f_comp_eq hg)
 
 end CategoryTheory.ShortComplex
